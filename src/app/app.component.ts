@@ -11,7 +11,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export class AppComponent {
 
   messages!: string[];
-
+  newMessage!: string|null;
   constructor(
     private readonly messageService: MessageService,
     private readonly cd: ChangeDetectorRef,
@@ -21,5 +21,10 @@ export class AppComponent {
       // forcer la mise à jour de la vue
       cd.detectChanges();
     });
+  }
+
+  sendMessage() {
+    this.messageService.send(this.newMessage);
+    this.newMessage = null;
   }
 }

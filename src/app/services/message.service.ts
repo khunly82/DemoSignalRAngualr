@@ -23,4 +23,8 @@ export class MessageService {
       })
     });
   }
+
+  send(newMessage: string | null) {
+    this.connection.invoke("Hello", newMessage);
+  }
 }
