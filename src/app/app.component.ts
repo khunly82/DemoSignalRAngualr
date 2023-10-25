@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MessageService } from './services/message.service';
+import { Observable } from 'rxjs';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'DemoSignalRAngualr';
+
+  messages!: string[];
+
+  constructor(
+    private readonly messageService: MessageService,
+    private readonly cd: ChangeDetectorRef,
+  ){
+    messageService.messages$.subscribe(data => {
+      this.messages = data;
+      // forcer la mise à jour de la vue
+      cd.detectChanges();
+    });
+  }
 }
